@@ -3,120 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Az Od Dice Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #222;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            margin: 0;
-        }
-
-        .container {
-            background-color: #333;
-            border-radius: 20px;
-            padding: 30px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            color: orange;
-        }
-
-        .bet-section {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .bet-section select,
-        .bet-section input {
-            padding: 8px;
-            border-radius: 10px;
-            border: none;
-            width: 150px;
-        }
-
-        button {
-            padding: 12px 25px;
-            border: none;
-            background-color: orange;
-            color: white;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            background-color: #ff8c00;
-            transform: scale(1.05);
-        }
-
-        .dice-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .display1, .display2 {
-            width: 100px;
-            height: 100px;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            border-radius: 15px;
-            background-color: #fff;
-            border: 3px solid orange;
-        }
-
-        .result {
-            font-size: 18px;
-            margin-top: 20px;
-            font-weight: bold;
-            min-height: 27px;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
-            
-            .input-group {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 5px;
-            }
-            
-            .bet-section select,
-            .bet-section input {
-                width: 100%;
-            }
-        }
-    </style>
+    <title>Az Od Game</title>
+    <link rel="stylesheet" href="azod.css">
 </head>
 <body>
     <div class="container">
-        <h1>Аз & Од Шооны Тоглоом</h1>
+        <h1>Аз & Од Тоглоом</h1>
 
         <div class="bet-section">
             <div class="input-group">
@@ -137,71 +29,13 @@
         </div>
 
         <div class="dice-container">
-            <div class="display1"></div>
-            <div class="display2"></div>
+            <div class="display1">АЗ</div>
+            <div class="display2">ОД</div>
         </div>
 
         <div class="result" id="result"></div>
     </div>
 
-    <script>
-        function rollDice() {
-            // Сонголт, бооцоо унших
-            const betChoice = document.getElementById("choice").value;
-            const betAmount = parseInt(document.getElementById("betAmount").value, 10);
-            const resultDiv = document.getElementById("result");
-
-            // Бооцоо шалгах
-            if (!betAmount || betAmount < 1) {
-                resultDiv.textContent = "Бооцоогоо 1-с их тоогоор оруулна уу.";
-                resultDiv.style.color = "#ff6b6b";
-                return;
-            }
-
-            // Шоо шидэх анимаци
-            resultDiv.textContent = "Шоо хаяж байна...";
-            resultDiv.style.color = "white";
-
-            // Анимаци хийх
-            const diceDisplays = document.querySelectorAll('.display1, .display2');
-            diceDisplays.forEach(dice => {
-                dice.style.animation = "shake 0.5s";
-            });
-
-            // 1 секундын дараа үр дүнг харуулах
-            setTimeout(() => {
-                diceDisplays.forEach(dice => {
-                    dice.style.animation = "";
-                });
-
-                // Шоо шидэх
-                const roll1 = Math.floor(Math.random() * 6) + 1;
-                const roll2 = Math.floor(Math.random() * 6) + 1;
-
-                // Зургуудыг солих (энд зурагны файлууд байхгүй тул CSS-ээр харуулна)
-                document.querySelector('.display1').style.backgroundImage = `url('${roll1}_dice.png')`;
-                document.querySelector('.display2').style.backgroundImage = `url('${roll2}_dice.png')`;
-
-                // Ялагчийг тодорхойлох
-                let winner;
-                if (roll1 === roll2) winner = "ijil";
-                else if (roll1 > roll2) winner = "az";
-                else winner = "od";
-
-                // Үр дүнг харуулах
-                if (betChoice === winner) {
-                    let winAmount = betAmount;
-                    if (winner === "ijil") winAmount = betAmount * 3; // Ижил тохиолдолд 3 дахин
-                    else winAmount = betAmount * 2;
-                    
-                    resultDiv.textContent = `Та яллаа! ₮${winAmount} хожлоо. 🎉`;
-                    resultDiv.style.color = "#51cf66";
-                } else {
-                    resultDiv.textContent = `Та ялагдлаа. ₮${betAmount} алдав. 😢`;
-                    resultDiv.style.color = "#ff6b6b";
-                }
-            }, 1000);
-        }
-    </script>
+    <script src="java.js"></script>
 </body>
 </html>
